@@ -15,7 +15,6 @@ jobs:
     strategy:
       matrix:
         couchbase-version:
-          - community-6.6.0
           - enterprise-6.6.6
           - community-7.0.2
           - enterprise-7.0.5
