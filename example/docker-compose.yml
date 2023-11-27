@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  couchbase:
+    image: btburnett3/couchbase-quickinit:enterprise-7.2.3
+    build:
+      context: ../
+    environment:
+      - CB_SERVICES=kv,n1ql,index,fts,eventing,cbas
+    volumes:
+      - "./:/startup"
+    ports:
+      - "8091-8096:8091-8096"
+      - "11207:11207"
+      - "11210-11211:11210-11211"

@@ -1,0 +1,7 @@
+Dockerfile
+.dockerignore
+.git
+.gitignore
+README.md
+example/
+scripts/node_modules/

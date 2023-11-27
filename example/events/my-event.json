@@ -1,0 +1,17 @@
+{
+  "depcfg": {
+    "buckets": [
+      {
+        "alias": "dst",
+        "bucket_name": "default",
+        "access": "rw"
+      }
+    ],
+    "curl": [],
+    "metadata_bucket": "default",
+    "source_bucket": "sample"
+  },
+  "settings": {
+    "worker_count": 3
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "default",
+    "ramQuotaMB": 100,
+    "bucketType": "couchbase",
+    "authType": "sasl",
+    "saslPassword": "",
+    "evictionPolicy": "valueOnly",
+    "replicaNumber": 0,
+    "flushEnabled": 1
+  }
+]

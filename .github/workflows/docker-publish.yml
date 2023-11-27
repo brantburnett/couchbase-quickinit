@@ -1,0 +1,49 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - main
+
+  # Run tests for any PRs.
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        couchbase-version:
+          - community-6.6.0
+          - enterprise-6.6.6
+          - community-7.0.2
+          - enterprise-7.0.5
+          - community-7.1.1
+          - enterprise-7.1.6
+          - community-7.2.2
+          - enterprise-7.2.3
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: btburnett3
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          build-args: "COUCHBASE_TAG=${{ matrix.couchbase-version }}"
+          platforms: ${{ (contains(matrix.couchbase-version, '-7.1') || contains(matrix.couchbase-version, '-7.2')) && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
+          push: ${{ github.event_name == 'push' }}
+          tags: "btburnett3/couchbase-quickinit:${{ matrix.couchbase-version }}"
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
