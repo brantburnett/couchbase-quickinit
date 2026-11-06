@@ -23,8 +23,8 @@ if [[ $CB_VERSION > "6." ]]; then
 
   scriptPath=$(dirname $(realpath $0))
   # Scopes and collections need created after a bucket is up and running
-  while read bucketName
+  while IFS= read -r bucketName
   do
-    $scriptPath/create-collections.sh $bucketName
+    "$scriptPath/create-collections.sh" "$bucketName"
   done < <(cat /startup/buckets.json | jq -r '.[].name')
 fi
